@@ -26,19 +26,20 @@ class PointCloud2Depth():
 		self.fy = msg.P[5]
 		self.cx = msg.P[2]
 		self.cy = msg.P[6]
-		print msg.P
+		#print msg.P
 		self.pointcloud_sub = rospy.Subscriber("/X1/points", PointCloud2, self.point_cb, queue_size = 1, buff_size = 2**24)
 		self.depth_pub = rospy.Publisher("/depthimage_transformed", Image, queue_size=1)
 		self.points = []
 	def point_cb(self, point_data):
 		gen = point_cloud2.read_points(point_data)
 		depth_data = np.zeros((480,640), dtype=np.float32)
-		print type(gen)
+		#print type(gen)
 		for p in gen:
-			point = self.inverseXYZ(p[0],p[1],p[2])
-			print p
-			print point
-			depth_data[point[0]][point[1]] = point[2]
+			point = self.inverseXYZ(p[1],p[0],p[2])
+			#print point
+			if 0 <= point[0] < 480 and 0 <= point[1] < 640:
+				print point 
+				depth_data[point[0]][point[1]] = point[2]
 
 		depthimage = self.bridge.cv2_to_imgmsg(depth_data, "32FC1")
 

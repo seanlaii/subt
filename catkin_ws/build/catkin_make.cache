@@ -1,2 +1,0 @@
-subt
--DCATKIN_DEVEL_PREFIX=/home/seanlai-laptop/subt/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/seanlai-laptop/subt/catkin_ws/install -G Unix Makefiles

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(subt)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -17,6 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   message_generation
+  pcl_ros
+  visualization_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -125,6 +127,10 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+
+
+add_executable(depth_to_point src/depth_to_point.cpp src/depth_to_point.h)
+target_link_libraries(depth_to_point ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
